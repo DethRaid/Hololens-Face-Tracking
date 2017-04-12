@@ -30,6 +30,22 @@ namespace HolographicFaceTracker {
 		TextRenderer3D(std::shared_ptr<DX::DeviceResources> device_resources_in);
 
 		/*!
+		 * \brief Loads the font atlas from disk
+		 * 
+		 * \param font_atlas_location The path to the font atlas
+		 */
+		void load_font_atlas(std::wstring font_atlas_location);
+
+		/*!
+		 * \brief Creates a task to create all the shaders this class needs
+		 *
+		 * \return A task that will load and initialize all the needed shaders
+		 */
+		Concurrency::task<void> CreateDeviceDependentResourcesAsync();
+
+		void ReleaseDeviceDependentResources();
+
+		/*!
 		 * \brief Renders the specified string at the provided position
 		 *
 		 * The string always faces towards the viewer
@@ -58,8 +74,6 @@ namespace HolographicFaceTracker {
 		// Static data, pretty much. This member is initialized in the constructor
 		std::unordered_map<char, char_drawing_params> character_locations;
 		Microsoft::WRL::ComPtr<ID3D11InputLayout> vertex_buffer_layout;
-
-		void create_vertex_description();
 	};
 }
 

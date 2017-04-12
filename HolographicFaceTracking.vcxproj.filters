@@ -55,6 +55,7 @@
     </ClCompile>
     <ClCompile Include="AppView.cpp" />
     <ClCompile Include="HolographicFaceTrackerMain.cpp" />
+    <ClCompile Include="TextRenderer3D.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -81,6 +82,7 @@
       <Filter>Content</Filter>
     </ClInclude>
     <ClInclude Include="HolographicFaceTrackerMain.h" />
+    <ClInclude Include="TextRenderer3D.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Content\Shaders\QuadVertexShader.hlsl">
@@ -114,7 +116,7 @@
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest" />
   </ItemGroup>
-    <ItemGroup>
+  <ItemGroup>
     <Image Include="..\..\..\SharedContent\media\smalltile-sdk.png">
       <Filter>Assets</Filter>
     </Image>

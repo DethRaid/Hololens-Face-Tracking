@@ -91,6 +91,7 @@
     <ClInclude Include="Content\ShaderStructures.h" />
     <ClInclude Include="Content\VideoFrameProcessor.h" />
     <ClInclude Include="pch.h" />
+    <ClInclude Include="TextRenderer3D.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AppView.cpp" />
@@ -106,6 +107,7 @@
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="TextRenderer3D.cpp" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -150,7 +152,7 @@
       <ShaderModel>5.0</ShaderModel>
     </FxCompile>
   </ItemGroup>
-    <ItemGroup>
+  <ItemGroup>
     <Image Include="..\..\..\SharedContent\media\microsoft-sdk.png">
       <Link>Assets\microsoft-sdk.png</Link>
     </Image>

@@ -24,6 +24,7 @@ namespace HolographicFaceTracker
     class SpinningCubeRenderer;
     class TextRenderer;
     class NV12VideoTexture;
+	class TextRenderer3D;
 
     class HolographicFaceTrackerMain : public DX::IDeviceNotify
     {
@@ -98,6 +99,7 @@ namespace HolographicFaceTracker
         std::shared_ptr<FaceTrackerProcessor>                           m_faceTrackerProcessor;
 
         // Objects related to rendering/3D models
+		std::shared_ptr<TextRenderer3D>									text_renderer_3d;
         std::shared_ptr<QuadRenderer>                                   m_quadRenderer;
         std::shared_ptr<SpinningCubeRenderer>                           m_spinningCubeRenderer;
         std::shared_ptr<TextRenderer>                                   m_textRenderer;

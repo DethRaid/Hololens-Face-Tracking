@@ -20,6 +20,7 @@
 #include "Content\QuadRenderer.h"
 #include "Content\TextRenderer.h"
 #include "Content\NV12VideoTexture.h"
+#include "TextRenderer3D.h"
 
 using namespace HolographicFaceTracker;
 
@@ -117,6 +118,7 @@ void HolographicFaceTrackerMain::SetHolographicSpace(HolographicSpace^ holograph
             DX::CreateAndInitializeAsync(m_quadRenderer, m_deviceResources),
             DX::CreateAndInitializeAsync(m_spinningCubeRenderer, m_deviceResources),
             DX::CreateAndInitializeAsync(m_textRenderer, m_deviceResources, 512u, 512u),
+			DX::CreateAndInitializeAsync(text_renderer_3d, m_deviceResources),
         };
 
         if (m_videoFrameProcessor)
@@ -413,6 +415,7 @@ bool HolographicFaceTrackerMain::Render(Windows::Graphics::Holographic::Holograp
                 {
                     m_spinningCubeRenderer->Render();
                     m_quadRenderer->RenderNV12(m_videoTexture->GetLuminanceTexture(), m_videoTexture->GetChrominanceTexture());
+					text_renderer_3d->draw_string_billboard(L"Charlie", { 0, 0, 0 });
                 }
                 // Otherwise we render the status message on the quad.
                 else
@@ -455,6 +458,7 @@ void HolographicFaceTrackerMain::OnDeviceLost()
 void HolographicFaceTrackerMain::OnDeviceRestored()
 {
     auto initTasks = {
+		text_renderer_3d->CreateDeviceDependentResourcesAsync(),
         m_quadRenderer->CreateDeviceDependentResourcesAsync(),
         m_spinningCubeRenderer->CreateDeviceDependentResourcesAsync(),
         m_textRenderer->CreateDeviceDependentResourcesAsync(),
