@@ -13,36 +13,51 @@
 
 #include "Common\DeviceResources.h"
 
-namespace HolographicFaceTracker
-{
-    class TextRenderer : public DX::Resource
-    {
-    public:
-        TextRenderer(
-            std::shared_ptr<DX::DeviceResources> deviceResources,
-            uint32_t textureWidth,
-            uint32_t textureHeight);
+namespace HolographicFaceTracker {
+	class TextRenderer: public DX::Resource {
+	public:
+		TextRenderer(
+			std::shared_ptr<DX::DeviceResources> deviceResources,
+			uint32_t textureWidth,
+			uint32_t textureHeight);
 
-        void RenderTextOffscreen(std::wstring const& str);
+		void RenderTextOffscreen(std::wstring const& str);
 
-        concurrency::task<void> CreateDeviceDependentResourcesAsync() override;
-        void ReleaseDeviceDependentResources() override;
+		void Render(std::wstring const& str);
 
-        ID3D11ShaderResourceView* GetTexture() const { return m_shaderResourceView.Get();   };
-        ID3D11SamplerState*       GetSampler() const { return m_pointSampler.Get();         };
+		void SetTargetPosition(Windows::Foundation::Numerics::float3 pos) {
+			m_targetPosition = pos;
+		}
 
-    private:
-        // Direct3D resources for rendering text to an off-screen render target.
-        Microsoft::WRL::ComPtr<ID3D11Texture2D>             m_texture;
-        Microsoft::WRL::ComPtr<ID3D11ShaderResourceView>    m_shaderResourceView;
-        Microsoft::WRL::ComPtr<ID3D11SamplerState>          m_pointSampler;
-        Microsoft::WRL::ComPtr<ID3D11RenderTargetView>      m_renderTargetView;
-        Microsoft::WRL::ComPtr<ID2D1RenderTarget>           m_d2dRenderTarget;
-        Microsoft::WRL::ComPtr<ID2D1SolidColorBrush>        m_whiteBrush;
-        Microsoft::WRL::ComPtr<IDWriteTextFormat>           m_textFormat;
+		Windows::Foundation::Numerics::float3 const& GetPosition() const {
+			return m_targetPosition;
+		}
 
-        // CPU-based variables for configuring the offscreen render target.
-        const unsigned int m_textureWidth;
-        const unsigned int m_textureHeight;
-    };
+		concurrency::task<void> CreateDeviceDependentResourcesAsync() override;
+		void ReleaseDeviceDependentResources() override;
+
+		ID3D11ShaderResourceView* GetTexture() const {
+			return m_shaderResourceView.Get();
+		};
+		ID3D11SamplerState*       GetSampler() const {
+			return m_pointSampler.Get();
+		};
+
+	private:
+		// Direct3D resources for rendering text to an off-screen render target.
+		Microsoft::WRL::ComPtr<ID3D11Texture2D>             m_texture;
+		Microsoft::WRL::ComPtr<ID3D11ShaderResourceView>    m_shaderResourceView;
+		Microsoft::WRL::ComPtr<ID3D11SamplerState>          m_pointSampler;
+		Microsoft::WRL::ComPtr<ID3D11RenderTargetView>      m_renderTargetView;
+		Microsoft::WRL::ComPtr<ID2D1RenderTarget>           m_d2dRenderTarget;
+		Microsoft::WRL::ComPtr<ID2D1SolidColorBrush>        m_whiteBrush;
+		Microsoft::WRL::ComPtr<IDWriteTextFormat>           m_textFormat;
+
+
+
+		Windows::Foundation::Numerics::float3           m_targetPosition = { 0.f, 0.f, -2.f };
+		// CPU-based variables for configuring the offscreen render target.
+		const unsigned int m_textureWidth;
+		const unsigned int m_textureHeight;
+	};
 }

@@ -7,6 +7,13 @@ HolographicFaceTracker::TextRenderer3D::TextRenderer3D(std::shared_ptr<DX::Devic
 	load_font_atlas(L"ms-appx:///font");
 }
 
+void HolographicFaceTracker::TextRenderer3D::load_font_atlas(std::wstring font_atlas_location) {
+	auto font_image_location = font_atlas_location + L".tgf";
+	auto font_data_location = font_atlas_location + L".fnt";
+
+
+}
+
 
 void HolographicFaceTracker::TextRenderer3D::draw_string_billboard(std::wstring const & string, Windows::Foundation::Numerics::float3 start_pos) {
 
